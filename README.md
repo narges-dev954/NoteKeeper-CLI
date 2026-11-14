@@ -1,5 +1,3 @@
-# NoteKeeper-CLI
-
 while True:
     print("\n---- My Notebook ----")
     print("1. Add a note")
@@ -14,10 +12,8 @@ while True:
     # 1. Add a note
     if choice == "1":
         note = input("Write your note: ")
-
         with open("note.txt", "a") as file:
             file.write(note + "\n")
-
         print("Note saved!")
 
     # 2. Read notes
@@ -25,13 +21,11 @@ while True:
         try:
             with open("note.txt", "r") as file:
                 notes = file.readlines()
-
-            if notes:
-                for i, note in enumerate(notes, start=1):
-                    print(i, note.strip())
-            else:
-                print("Notebook is empty!")
-
+                if notes:
+                    for i, note in enumerate(notes, start=1):
+                        print(i, note.strip())
+                else:
+                    print("Notebook is empty!")
         except FileNotFoundError:
             print("File not found!")
 
@@ -40,29 +34,21 @@ while True:
         try:
             with open("note.txt", "r") as file:
                 notes = file.readlines()
-
             if not notes:
                 print("Notebook is empty!")
                 continue
-
             for i, note in enumerate(notes, start=1):
                 print(i, note.strip())
-
             number = int(input("Which note do you want to delete? "))
-
             if 1 <= number <= len(notes):
                 deleted = notes.pop(number - 1)
-
                 with open("note.txt", "w") as file:
                     file.writelines(notes)
-
                 print("Deleted:", deleted.strip())
             else:
                 print("Invalid note number!")
-
         except FileNotFoundError:
             print("File not found!")
-
         except ValueError:
             print("Please enter a valid number!")
 
@@ -71,52 +57,38 @@ while True:
         try:
             with open("note.txt", "r") as file:
                 notes = file.readlines()
-
             if not notes:
                 print("Notebook is empty!")
                 continue
-
             for i, note in enumerate(notes, start=1):
                 print(i, note.strip())
-
             number = int(input("Which note do you want to edit? "))
-
             if 1 <= number <= len(notes):
                 new_note = input("Write a new note: ")
-
                 notes[number - 1] = new_note + "\n"
-
                 with open("note.txt", "w") as file:
                     file.writelines(notes)
-
                 print("Note updated!")
             else:
                 print("Invalid note number!")
-
+        except ValueError:
+            print("Please enter a valid number!")
         except FileNotFoundError:
             print("File not found!")
 
-        except ValueError:
-            print("Please enter a valid number!")
-
     # 5. Search
     elif choice == "5":
-        search_word = input("What do you want to search? ")
-
         try:
             with open("note.txt", "r") as file:
                 notes = file.readlines()
-
+            search_word = input("What do you want to search? ")
             found = False
-
             for note in notes:
                 if search_word in note:
                     print("Found:", note.strip())
                     found = True
-
             if not found:
                 print("No note found!")
-
         except FileNotFoundError:
             print("File not found!")
 
@@ -124,6 +96,5 @@ while True:
     elif choice == "6":
         print("Goodbye!")
         break
-
     else:
         print("Invalid choice!")
